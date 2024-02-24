@@ -17,20 +17,20 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late List<MyRadio> radios;
   late MyRadio _selectedRadio;
-  late Color _selectedColor;
-  bool isPlaying=false;
-  final AudioPlayer audioPlayer=AudioPlayer();
+
+  // late Color _selectedColor;
+  bool isPlaying = false;
+  final AudioPlayer audioPlayer = AudioPlayer();
 
   @override
   void initState() {
     super.initState();
     fetchRadios();
     audioPlayer.onPlayerStateChanged.listen((event) {
-      if(event==audioPlayer){
-        isPlaying=false;
-      }
-      else{
-        isPlaying=true;
+      if (event == audioPlayer) {
+        isPlaying = false;
+      } else {
+        isPlaying = true;
       }
     });
   }
@@ -41,13 +41,12 @@ class _HomePageState extends State<HomePage> {
     print(radios);
     setState(() {});
   }
-  _playMusic(String url){
-    audioPlayer.play(url as Source);
-    _selectedRadio=radios.firstWhere((element) => element.url==url);
-    print(_selectedRadio);
-    setState(() {
-    });
 
+  _playMusic(String url) {
+    audioPlayer.play(url as Source);
+    _selectedRadio = radios.firstWhere((element) => element.url == url);
+    print(_selectedRadio);
+    setState(() {});
   }
 
   @override
@@ -59,19 +58,14 @@ class _HomePageState extends State<HomePage> {
           VxAnimatedBox()
               .size(context.screenWidth, context.screenHeight)
               .withGradient(LinearGradient(
-            colors: [AIColors.primaryColor1, AIColors.primaryColor2],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ))
+                colors: [AIColors.primaryColor1, AIColors.primaryColor2],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ))
               .make(),
           AppBar(
-            title: "AI Radio"
-                .text
-                .xl4
-                .bold
-                .white
-                .make()
-                .shimmer(primaryColor: Vx.purple300, secondaryColor: Colors.white),
+            title: "AI Radio".text.xl4.bold.white.make().shimmer(
+                primaryColor: Vx.purple300, secondaryColor: Colors.white),
             backgroundColor: Colors.transparent,
             elevation: 0.0,
             centerTitle: true,
@@ -90,7 +84,8 @@ class _HomePageState extends State<HomePage> {
                         top: 0.0,
                         right: 0.0,
                         child: VxBox(
-                          child: rad.category.text.uppercase.white.make().px16(),
+                          child:
+                              rad.category.text.uppercase.white.make().px16(),
                         )
                             .height(40)
                             .black
@@ -127,13 +122,13 @@ class _HomePageState extends State<HomePage> {
                 )
                     .clip(Clip.antiAlias)
                     .bgImage(DecorationImage(
-                  image: NetworkImage(rad.image),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.3),
-                    BlendMode.darken,
-                  ),
-                ))
+                      image: NetworkImage(rad.image),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.3),
+                        BlendMode.darken,
+                      ),
+                    ))
                     .border(color: Colors.black, width: 5.0)
                     .withRounded(value: 60.0)
                     .make()
@@ -144,7 +139,8 @@ class _HomePageState extends State<HomePage> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Icon(CupertinoIcons.stop_circle, color: Colors.white, size: 50.0),
+            child: Icon(CupertinoIcons.stop_circle,
+                color: Colors.white, size: 50.0),
           ).pOnly(bottom: context.percentHeight * 12),
         ],
         fit: StackFit.expand,
